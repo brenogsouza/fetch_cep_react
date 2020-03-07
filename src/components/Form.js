@@ -1,107 +1,185 @@
-import { Grid, Paper, TextField } from "@material-ui/core";
+import { Button, Grid, Paper, TextField, Typography } from "@material-ui/core";
 import React from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useFormChange } from "./hooks";
 import { Container } from "./styles";
 
 export default function Form() {
-  const methods = useForm();
-  const { handleSubmit, control, reset } = methods;
-  const onSubmit = data => console.log(data);
-
+  const submitForm = () => {
+    alert(`O endereço salvo foi:
+    Cep: ${inputs.cep} 
+    Tipo de endereço: ${inputs.tipoEndereco}
+    Endereço nome: ${inputs.enderecoNome}
+    Logradouro: ${inputs.logradouro}
+    Número: ${inputs.numero}
+    Bairro: ${inputs.bairro}
+    Cidade: ${inputs.cidade}
+    Uf: ${inputs.uf}
+    Código IBGE: ${inputs.ibge}
+    Complemento: ${inputs.complemento}
+    DDD: ${inputs.ddd}
+    Latitude: ${inputs.latitude}
+    Longitude: ${inputs.longitude}
+    `);
+    console.log(`O endereço salvo foi:
+    Cep: ${inputs.cep} 
+    Tipo de endereço: ${inputs.tipoEndereco}
+    Endereço nome: ${inputs.enderecoNome}
+    Logradouro: ${inputs.logradouro}
+    Número: ${inputs.numero}
+    Bairro: ${inputs.bairro}
+    Cidade: ${inputs.cidade}
+    Uf: ${inputs.uf}
+    Código IBGE: ${inputs.ibge}
+    Complemento: ${inputs.complemento}
+    DDD: ${inputs.ddd}
+    Latitude: ${inputs.latitude}
+    Longitude: ${inputs.longitude}
+    `);
+  };
+  const { inputs, handleInputChange, handleSubmit } = useFormChange(submitForm);
   return (
     <Container>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <h1>Change cep React</h1>
-        <Paper>
+      <form onSubmit={handleSubmit}>
+        <Paper className="paper">
+          <Typography variant="h2" align="center">
+            Change cep React
+          </Typography>
           <Grid container spacing={5}>
-            <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-              <Controller
+            <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
+              <TextField
                 fullWidth
-                as={TextField}
-                name="TextField"
                 variant="outlined"
                 label="Cep"
-                control={control}
-                defaultValue=""
+                name="cep"
+                onChange={handleInputChange}
+                value={inputs.cep}
               />
             </Grid>
-            <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
-              <Controller
+            <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
+              <TextField
                 fullWidth
-                as={TextField}
-                name="TextField"
+                variant="outlined"
+                label="Tipo endereço"
+                name="tipoEndereco"
+                onChange={handleInputChange}
+                value={inputs.tipoEndereco}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+              <TextField
+                fullWidth
+                name="enderecoNome"
+                variant="outlined"
+                label="Endereço nome"
+                onChange={handleInputChange}
+                value={inputs.enderecoNome}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={10} lg={10} xl={10}>
+              <TextField
+                fullWidth
+                name="logradouro"
                 variant="outlined"
                 label="Logradouro"
-                control={control}
-                defaultValue=""
+                onChange={handleInputChange}
+                value={inputs.logradouro}
               />
             </Grid>
-            <Grid item>
-              <Controller
-                as={TextField}
-                name="TextField"
+            <Grid item xs={12} sm={12} md={2} lg={2} xl={2}>
+              <TextField
+                fullWidth
+                name="numero"
                 variant="outlined"
-                control={control}
-                defaultValue=""
+                label="Número"
+                onChange={handleInputChange}
+                value={inputs.numero}
               />
             </Grid>
-            <Grid item>
-              <Controller
-                as={TextField}
-                name="TextField"
+            <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+              <TextField
+                name="bairro"
                 variant="outlined"
-                control={control}
-                defaultValue=""
+                label="Bairro"
+                fullWidth
+                onChange={handleInputChange}
+                value={inputs.bairro}
               />
             </Grid>
-            <Grid item>
-              <Controller
-                as={TextField}
-                name="TextField"
+            <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+              <TextField
+                name="cidade"
                 variant="outlined"
-                control={control}
-                defaultValue=""
+                label="Cidade"
+                fullWidth
+                onChange={handleInputChange}
+                value={inputs.cidade}
               />
             </Grid>
-            <Grid item>
-              <Controller
-                as={TextField}
-                name="TextField"
+            <Grid item xs={12} sm={12} md={2} lg={2} xl={2}>
+              <TextField
+                name="uf"
                 variant="outlined"
-                control={control}
-                defaultValue=""
+                label="UF"
+                fullWidth
+                onChange={handleInputChange}
+                value={inputs.uf}
               />
             </Grid>
-            <Grid item>
-              <Controller
-                as={TextField}
-                name="TextField"
+            <Grid item xs={12} sm={12} md={2} lg={2} xl={2}>
+              <TextField
+                name="ibge"
                 variant="outlined"
-                control={control}
-                defaultValue=""
+                fullWidth
+                label="Código IBGE"
+                onChange={handleInputChange}
+                value={inputs.ibge}
               />
             </Grid>
-            <Grid item>
-              <Controller
-                as={TextField}
-                name="TextField"
+            <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+              <TextField
+                name="complemento"
                 variant="outlined"
-                control={control}
-                defaultValue=""
+                label="Complemento"
+                fullWidth
+                onChange={handleInputChange}
+                value={inputs.complemento}
               />
             </Grid>
-            <Grid item>
-              <Controller
-                as={TextField}
-                name="TextField"
+            <Grid item xs={12} sm={12} md={2} lg={2} xl={2}>
+              <TextField
+                name="ddd"
                 variant="outlined"
-                control={control}
-                defaultValue=""
+                fullWidth
+                label="DDD"
+                onChange={handleInputChange}
+                value={inputs.ddd}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={2} lg={2} xl={2}>
+              <TextField
+                name="latitude"
+                variant="outlined"
+                fullWidth
+                label="Latitude"
+                onChange={handleInputChange}
+                value={inputs.latitude}
+              />
+            </Grid>
+            <Grid item xs={12} sm={12} md={2} lg={2} xl={2}>
+              <TextField
+                name="longitude"
+                variant="outlined"
+                fullWidth
+                label="Logitude"
+                onChange={handleInputChange}
+                value={inputs.longitude}
               />
             </Grid>
           </Grid>
+          <Button onClick={submitForm} type="submit" className="button__salvar">
+            Salvar
+          </Button>
         </Paper>
-        <button>Submit</button>
       </form>
     </Container>
   );
