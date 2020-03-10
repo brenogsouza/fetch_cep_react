@@ -69,76 +69,74 @@ export default function Form() {
           {[
             {
               label: "Logradouro",
-              xs: 12,
-              sm: 12,
-              md: 10,
-              lg: 10,
-              xl: 10,
+              xs: 10,
+              // sm: 12,
+              // md: 10,
+              // lg: 10,
+              // xl: 10,
               name: "address",
               fullWidth: true
             },
             {
               label: "Número",
-              xs: 12,
-              sm: 12,
-              md: 2,
-              lg: 2,
-              xl: 2,
+              xs: 2,
+              // sm: 12,
+              // md: 2,
+              // lg: 2,
+              // xl: 2,
               name: "number",
               fullWidth: true
             },
             {
               label: "Bairro",
               xs: 12,
-              sm: 12,
-              md: 4,
-              lg: 4,
-              xl: 4,
+              // sm: 12,
+              // md: 4,
+              // lg: 4,
+              // xl: 4,
               name: "district",
               fullWidth: true
             },
             {
               label: "Cidade",
               xs: 12,
-              sm: 12,
-              md: 4,
-              lg: 4,
-              xl: 4,
+              // sm: 12,
+              // md: 4,
+              // lg: 4,
+              // xl: 4,
               name: "city",
               fullWidth: true
             },
             {
               label: "UF",
               xs: 12,
-              sm: 12,
-              md: 2,
-              lg: 2,
-              xl: 2,
+              // sm: 12,
+              // md: 2,
+              // lg: 2,
+              // xl: 2,
               name: "state",
               fullWidth: true
             },
             {
               label: "Complemento",
               xs: 12,
-              sm: 12,
-              md: 6,
-              lg: 6,
-              xl: 6,
+              // sm: 12,
+              // md: 6,
+              // lg: 6,
+              // xl: 6,
               name: "complement",
               fullWidth: true
             }
           ].map(field => (
-            <Grid item spacing={3}>
-              <TextField
-                {...field}
-                key={field.name}
-                value={endereco[field.name]}
-                fullWidth
-                variant="outlined"
-                onChange={handleChangeField}
-                disabled={loading}
-              />
-            </Grid>
+            <TextField
+              {...field}
+              key={field.name}
+              value={endereco[field.name]}
+              variant="outlined"
+              style={{ padding: 10 }}
+              onChange={handleChangeField}
+              disabled={loading}
+            />
           ))}
         </Grid>
         <Button type="submit" className="button__salvar">
