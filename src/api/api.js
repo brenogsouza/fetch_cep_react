@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 export const api = Axios.create({
-  baseURL: `https://cep.awesomeapi.com.br/json/`,
+  baseURL: `https://apps.widenet.com.br/busca-cep/api/cep`,
   timeout: 1000,
   headers: {
     Accept: "application/json",

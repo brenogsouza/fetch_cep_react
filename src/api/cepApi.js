@@ -1,4 +1,4 @@
-import api from "./api";
+import { api } from "./api";
 
 class CepApi {
   static getInstance() {
@@ -8,8 +8,8 @@ class CepApi {
     return this.instance;
   }
 
-  async get() {
-    const response = await api.get("/fornecedores");
+  async get(cep) {
+    const response = await api.get(`/${cep}.json`);
     return response;
   }
 }

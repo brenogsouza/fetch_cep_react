@@ -1,19 +1,26 @@
 import { Button, Grid, Paper, TextField, Typography } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import CepApi from "../api/cepApi";
+import { handleCepMask } from "../utils/cepMask";
 import { Container } from "./styles";
 
 export default function Form() {
   const [cep, setCep] = useState("");
 
-  const handleChangeCep = e => {
-    setCep(cepMask(e.target.value));
-  };
+  useEffect(() => {
+    async function fetchEndereco() {
+      if (cep.length < 9) {
+        return;
+      }
+      console.log("buscar cep", cep);
+      const res = await CepApi.getInstance().get(cep);
+      console.log(res.data);
+    }
+    fetchEndereco();
+  }, [cep]);
 
-  const cepMask = value => {
-    return value
-      .replace(/\D+/g, "")
-      .replace(/(\d{5})(\d)/, "$1-$2")
-      .replace(/(-\d{3})\d+?$/, "$1");
+  const handleChangeCep = e => {
+    setCep(handleCepMask(e.target.value));
   };
 
   return (
