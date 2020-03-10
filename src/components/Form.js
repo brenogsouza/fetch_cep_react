@@ -6,7 +6,7 @@ import {
   TextField,
   Typography
 } from "@material-ui/core";
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import CepApi from "../api/cepApi";
 import { handleCepMask } from "../utils/cepMask";
 import { Container } from "./styles";
@@ -15,6 +15,8 @@ export default function Form() {
   const [cep, setCep] = useState("");
   const [endereco, dispatch] = useReducer(reducer, initialState);
   const [loading, setLoading] = useState(false);
+
+  const numberField = useRef();
 
   console.log(endereco);
 
@@ -32,6 +34,7 @@ export default function Form() {
         type: "UPDATE_ENDERECO",
         payload: res.data
       });
+      numberField.current.focus();
     }
     fetchEndereco();
   }, [cep]);
@@ -91,7 +94,8 @@ export default function Form() {
               // lg: 2,
               // xl: 2,
               name: "number",
-              fullWidth: true
+              fullWidth: true,
+              inputRef: numberField
             },
             {
               label: "Bairro",
