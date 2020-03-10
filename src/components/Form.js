@@ -1,11 +1,14 @@
 import { Button, Grid, Paper, TextField, Typography } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import CepApi from "../api/cepApi";
 import { handleCepMask } from "../utils/cepMask";
 import { Container } from "./styles";
 
 export default function Form() {
   const [cep, setCep] = useState("");
+  const [endereco, dispatch] = useReducer(reducer, initialState);
+
+  console.log(endereco);
 
   useEffect(() => {
     async function fetchEndereco() {
@@ -15,6 +18,10 @@ export default function Form() {
       console.log("buscar cep", cep);
       const res = await CepApi.getInstance().get(cep);
       console.log(res.data);
+      dispatch({
+        type: "UPDATE_ENDERECO",
+        payload: res.data
+      });
     }
     fetchEndereco();
   }, [cep]);
@@ -118,3 +125,24 @@ export default function Form() {
     </Container>
   );
 }
+function reducer(state, action) {
+  console.log("action", action);
+  if (action.type === "UPDATE_ENDERECO") {
+    return {
+      ...state,
+      ...action.payload
+    };
+  }
+  return state;
+}
+
+const initialState = {
+  code: "",
+  address: "",
+  number: "",
+  district: "",
+  complement: "",
+  city: "",
+  state: "",
+  error: null
+};
