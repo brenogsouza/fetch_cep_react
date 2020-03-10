@@ -30,6 +30,8 @@ export default function Form() {
     setCep(handleCepMask(e.target.value));
   };
 
+  const handleChangeField = e => {};
+
   return (
     <Container>
       <Paper className="paper">
@@ -47,76 +49,79 @@ export default function Form() {
               onChange={handleChangeCep}
             />
           </Grid>
-          <Grid item xs={12} sm={12} md={10} lg={10} xl={10}>
-            <TextField
-              fullWidth
-              name="logradouro"
-              variant="outlined"
-              label="Logradouro"
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} md={2} lg={2} xl={2}>
-            <TextField
-              fullWidth
-              name="numero"
-              variant="outlined"
-              label="Número"
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-            <TextField
-              name="bairro"
-              variant="outlined"
-              label="Bairro"
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-            <TextField
-              name="cidade"
-              variant="outlined"
-              label="Cidade"
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} md={2} lg={2} xl={2}>
-            <TextField name="uf" variant="outlined" label="UF" fullWidth />
-          </Grid>
-          <Grid item xs={12} sm={12} md={2} lg={2} xl={2}>
-            <TextField
-              name="ibge"
-              variant="outlined"
-              fullWidth
-              label="Código IBGE"
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-            <TextField
-              name="complemento"
-              variant="outlined"
-              label="Complemento"
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} md={2} lg={2} xl={2}>
-            <TextField name="ddd" variant="outlined" fullWidth label="DDD" />
-          </Grid>
-          <Grid item xs={12} sm={12} md={2} lg={2} xl={2}>
-            <TextField
-              name="latitude"
-              variant="outlined"
-              fullWidth
-              label="Latitude"
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} md={2} lg={2} xl={2}>
-            <TextField
-              name="longitude"
-              variant="outlined"
-              fullWidth
-              label="Logitude"
-            />
-          </Grid>
+          {[
+            {
+              label: "Logradouro",
+              xs: 12,
+              sm: 12,
+              md: 10,
+              lg: 10,
+              xl: 10,
+              name: "address",
+              fullWidth: true
+            },
+            {
+              label: "Número",
+              xs: 12,
+              sm: 12,
+              md: 2,
+              lg: 2,
+              xl: 2,
+              name: "number",
+              fullWidth: true
+            },
+            {
+              label: "Bairro",
+              xs: 12,
+              sm: 12,
+              md: 4,
+              lg: 4,
+              xl: 4,
+              name: "district",
+              fullWidth: true
+            },
+            {
+              label: "Cidade",
+              xs: 12,
+              sm: 12,
+              md: 4,
+              lg: 4,
+              xl: 4,
+              name: "city",
+              fullWidth: true
+            },
+            {
+              label: "UF",
+              xs: 12,
+              sm: 12,
+              md: 2,
+              lg: 2,
+              xl: 2,
+              name: "state",
+              fullWidth: true
+            },
+            {
+              label: "Complemento",
+              xs: 12,
+              sm: 12,
+              md: 6,
+              lg: 6,
+              xl: 6,
+              name: "complement",
+              fullWidth: true
+            }
+          ].map(field => (
+            <Grid item spacing={3}>
+              <TextField
+                {...field}
+                key={field.name}
+                value={endereco[field.name]}
+                fullWidth
+                variant="outlined"
+                onChange={handleChangeField}
+              />
+            </Grid>
+          ))}
         </Grid>
         <Button type="submit" className="button__salvar">
           Salvar
