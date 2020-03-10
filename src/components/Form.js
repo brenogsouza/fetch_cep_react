@@ -1,4 +1,11 @@
-import { Button, Grid, Paper, TextField, Typography } from "@material-ui/core";
+import {
+  Button,
+  CircularProgress,
+  Grid,
+  Paper,
+  TextField,
+  Typography
+} from "@material-ui/core";
 import React, { useEffect, useReducer, useState } from "react";
 import CepApi from "../api/cepApi";
 import { handleCepMask } from "../utils/cepMask";
@@ -7,6 +14,7 @@ import { Container } from "./styles";
 export default function Form() {
   const [cep, setCep] = useState("");
   const [endereco, dispatch] = useReducer(reducer, initialState);
+  const [loading, setLoading] = useState(false);
 
   console.log(endereco);
 
@@ -16,7 +24,9 @@ export default function Form() {
         return;
       }
       console.log("buscar cep", cep);
+      setLoading(true);
       const res = await CepApi.getInstance().get(cep);
+      setLoading(false);
       console.log(res.data);
       dispatch({
         type: "UPDATE_ENDERECO",
@@ -38,8 +48,8 @@ export default function Form() {
         <Typography variant="h2" align="center">
           Change cep React
         </Typography>
-        <Grid container spacing={5}>
-          <Grid item xs={12} sm={12} md={3} lg={3} xl={3}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={12} md={2} lg={2} xl={2}>
             <TextField
               fullWidth
               variant="outlined"
@@ -49,6 +59,13 @@ export default function Form() {
               onChange={handleChangeCep}
             />
           </Grid>
+          {loading && (
+            <>
+              <CircularProgress />
+              <span>BUSCANDO CEP...</span>
+            </>
+          )}
+
           {[
             {
               label: "Logradouro",
@@ -119,6 +136,7 @@ export default function Form() {
                 fullWidth
                 variant="outlined"
                 onChange={handleChangeField}
+                disabled={loading}
               />
             </Grid>
           ))}
