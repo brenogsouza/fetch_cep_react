@@ -40,7 +40,13 @@ export default function Form() {
     setCep(handleCepMask(e.target.value));
   };
 
-  const handleChangeField = e => {};
+  const handleChangeField = e => {
+    const { name, value } = e.target;
+    dispatch({
+      type: "UPDATE_FIELD",
+      payload: { name, value }
+    });
+  };
 
   return (
     <Container>
@@ -154,6 +160,13 @@ function reducer(state, action) {
       ...action.payload
     };
   }
+  if (action.type === "UPDATE_FIELD") {
+    return {
+      ...state,
+      [action.payload.name]: action.payload.value
+    };
+  }
+
   return state;
 }
 
