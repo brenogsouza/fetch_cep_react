@@ -25,11 +25,11 @@ export default function Form() {
       if (cep.length < 9) {
         return;
       }
-      console.log("buscar cep", cep);
+
       setLoading(true);
       const res = await CepApi.getInstance().get(cep);
       setLoading(false);
-      console.log(res.data);
+
       dispatch({
         type: "UPDATE_ENDERECO",
         payload: res.data
@@ -79,20 +79,20 @@ export default function Form() {
             {
               label: "Logradouro",
               xs: 10,
-              // sm: 12,
-              // md: 10,
-              // lg: 10,
-              // xl: 10,
+              sm: 12,
+              md: 10,
+              lg: 10,
+              xl: 10,
               name: "address",
               fullWidth: true
             },
             {
               label: "Número",
               xs: 2,
-              // sm: 12,
-              // md: 2,
-              // lg: 2,
-              // xl: 2,
+              sm: 12,
+              md: 2,
+              lg: 2,
+              xl: 2,
               name: "number",
               fullWidth: true,
               inputRef: numberField
@@ -100,44 +100,49 @@ export default function Form() {
             {
               label: "Bairro",
               xs: 12,
-              // sm: 12,
-              // md: 4,
-              // lg: 4,
-              // xl: 4,
+              sm: 12,
+              md: 4,
+              lg: 4,
+              xl: 4,
               name: "district",
               fullWidth: true
             },
             {
               label: "Cidade",
               xs: 12,
-              // sm: 12,
-              // md: 4,
-              // lg: 4,
-              // xl: 4,
+              sm: 12,
+              md: 4,
+              lg: 4,
+              xl: 4,
               name: "city",
               fullWidth: true
             },
             {
               label: "UF",
               xs: 12,
-              // sm: 12,
-              // md: 2,
-              // lg: 2,
-              // xl: 2,
+              sm: 12,
+              md: 2,
+              lg: 2,
+              xl: 2,
               name: "state",
               fullWidth: true
             },
             {
               label: "Complemento",
               xs: 12,
-              // sm: 12,
-              // md: 6,
-              // lg: 6,
-              // xl: 6,
+              sm: 12,
+              md: 6,
+              lg: 6,
+              xl: 6,
               name: "complement",
               fullWidth: true
             }
           ].map(field => (
+            <Grid item   xs: 12,
+              sm: 12,
+              md: 6,
+              lg: 6,
+              xl: 6,>
             <TextField
               {...field}
               key={field.name}
@@ -147,6 +152,7 @@ export default function Form() {
               onChange={handleChangeField}
               disabled={loading}
             />
+            </Grid>
           ))}
         </Grid>
         <Button type="submit" className="button__salvar">
