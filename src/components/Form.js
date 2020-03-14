@@ -1,4 +1,5 @@
 import {
+  Backdrop,
   Button,
   CircularProgress,
   Grid,
@@ -6,15 +7,24 @@ import {
   TextField,
   Typography
 } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import CepApi from "../api/cepApi";
 import { handleCepMask } from "../utils/cepMask";
 import { Container } from "./styles";
 
+const useStyles = makeStyles(theme => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff"
+  }
+}));
+
 export default function Form() {
   const [cep, setCep] = useState("");
   const [endereco, dispatch] = useReducer(reducer, initialState);
   const [loading, setLoading] = useState(false);
+  const classes = useStyles();
 
   const numberField = useRef();
 
@@ -58,6 +68,13 @@ export default function Form() {
           Change cep React
         </Typography>
         <Grid container spacing={2}>
+          {loading && (
+            <>
+              <Backdrop className={classes.backdrop} open={loading}>
+                <CircularProgress color="inherit" />
+              </Backdrop>
+            </>
+          )}
           <Grid item xs={12} sm={12} md={2} lg={2} xl={2}>
             <TextField
               fullWidth
@@ -68,31 +85,24 @@ export default function Form() {
               onChange={handleChangeCep}
             />
           </Grid>
-          {loading && (
-            <>
-              <CircularProgress />
-              <span>BUSCANDO CEP...</span>
-            </>
-          )}
-
           {[
             {
               label: "Logradouro",
-              xs: 10,
+              xs: 12,
               sm: 12,
-              md: 10,
-              lg: 10,
-              xl: 10,
+              md: 5,
+              lg: 5,
+              xl: 5,
               name: "address",
               fullWidth: true
             },
             {
               label: "Número",
-              xs: 2,
+              xs: 12,
               sm: 12,
-              md: 2,
-              lg: 2,
-              xl: 2,
+              md: 5,
+              lg: 5,
+              xl: 5,
               name: "number",
               fullWidth: true,
               inputRef: numberField
@@ -101,9 +111,9 @@ export default function Form() {
               label: "Bairro",
               xs: 12,
               sm: 12,
-              md: 4,
-              lg: 4,
-              xl: 4,
+              md: 5,
+              lg: 5,
+              xl: 5,
               name: "district",
               fullWidth: true
             },
@@ -111,9 +121,9 @@ export default function Form() {
               label: "Cidade",
               xs: 12,
               sm: 12,
-              md: 4,
-              lg: 4,
-              xl: 4,
+              md: 5,
+              lg: 5,
+              xl: 5,
               name: "city",
               fullWidth: true
             },
@@ -131,27 +141,30 @@ export default function Form() {
               label: "Complemento",
               xs: 12,
               sm: 12,
-              md: 6,
-              lg: 6,
-              xl: 6,
+              md: 12,
+              lg: 12,
+              xl: 12,
               name: "complement",
               fullWidth: true
             }
           ].map(field => (
-            <Grid item   xs: 12,
-              sm: 12,
-              md: 6,
-              lg: 6,
-              xl: 6,>
-            <TextField
-              {...field}
-              key={field.name}
-              value={endereco[field.name]}
-              variant="outlined"
-              style={{ padding: 10 }}
-              onChange={handleChangeField}
-              disabled={loading}
-            />
+            <Grid
+              item
+              xs={field.xs}
+              sm={field.sm}
+              md={field.md}
+              lg={field.lg}
+              xl={field.xl}
+            >
+              <TextField
+                {...field}
+                key={field.name}
+                value={endereco[field.name]}
+                variant="outlined"
+                style={{ padding: 10 }}
+                onChange={handleChangeField}
+                disabled={loading}
+              />
             </Grid>
           ))}
         </Grid>
