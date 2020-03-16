@@ -24,11 +24,9 @@ export default function Form() {
   const [cep, setCep] = useState("");
   const [endereco, dispatch] = useReducer(reducer, initialState);
   const [loading, setLoading] = useState(false);
+
   const classes = useStyles();
-
   const numberField = useRef();
-
-  console.log(endereco);
 
   useEffect(() => {
     async function fetchEndereco() {
@@ -38,7 +36,18 @@ export default function Form() {
 
       setLoading(true);
       const res = await CepApi.getInstance().get(cep);
+      console.log(res);
       setLoading(false);
+
+      if (!res.data.ok) {
+        dispatch({
+          type: "FAIL",
+          payload: {
+            error: res.message
+          }
+        });
+        return;
+      }
 
       dispatch({
         type: "UPDATE_ENDERECO",
@@ -187,6 +196,13 @@ function reducer(state, action) {
     return {
       ...state,
       [action.payload.name]: action.payload.value
+    };
+  }
+
+  if (action.type === "FAIL") {
+    return {
+      ...initialState,
+      error: action.payload.error
     };
   }
 
